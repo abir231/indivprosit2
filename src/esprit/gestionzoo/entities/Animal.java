@@ -1,6 +1,6 @@
 package esprit.gestionzoo.entities;
 
-public class Animal {
+public sealed class Animal permits Aquatic, Terrestrial {
     private String family;
     private String name;
     private int age;
