@@ -15,6 +15,10 @@ public class ZooManagement {
 
         Zoo myZoo = new Zoo(zooName, "Tunis", nbrCages);
 
+        zoo.addAquaticAnimal(new Dolphin("Delphinidae", "Flipper", 5, true, "océan"));
+        zoo.addAquaticAnimal(new Penguin("Spheniscidae", "Pingu", 3, false, "bassin"));
+
+
         // Création d'animaux
         Animal lion = new Animal("Félidé", "Lion", 5, true);
         Animal tiger = new Animal("Félidé", "Tiger", 4, true);

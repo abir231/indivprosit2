@@ -1,3 +1,8 @@
+package esprit.gestionzoo.entities;
+
+import esprit.gestionzoo.entities.Animal;
+import esprit.gestionzoo.entities.Aquatic;
+
 public class Zoo {
     private static final int MAX_ANIMALS = 25; // constante pour le nombre maximal d'animaux
     private Animal[] animals = new Animal[MAX_ANIMALS]; // tableau d'animaux
@@ -5,6 +10,19 @@ public class Zoo {
     private String name;
     private String city;
     private final int nbrCages; // nombre de cages constant
+
+    private Aquatic[] aquaticAnimals = new Aquatic[10];
+    private int aquaticCount = 0;
+
+    public boolean addAquaticAnimal(Aquatic aquatic) {
+        if (aquaticCount >= aquaticAnimals.length) {
+            System.out.println("Impossible d'ajouter " + aquatic.getName() + " : Aquarium plein !");
+            return false;
+        }
+        aquaticAnimals[aquaticCount++] = aquatic;
+        System.out.println(aquatic.getName() + " ajouté à l'aquarium !");
+        return true;
+    }
 
     public Zoo(String name, String city, int nbrCages) {
         this.name = name;
@@ -87,4 +105,42 @@ public class Zoo {
     public static Zoo comparerZoo(Zoo z1, Zoo z2) {
         return (z1.animalCount >= z2.animalCount) ? z1 : z2;
     }
+
+    public void makeAquaticAnimalsSwim() {
+        for (int i = 0; i < aquaticCount; i++) {
+            aquaticAnimals[i].swim();
+        }
+    }
+
+    public float maxPenguinSwimmingDepth() {
+        float maxDepth = 0;
+
+        for (int i = 0; i < aquaticCount; i++) {
+            if (aquaticAnimals[i] instanceof Penguin penguin) {
+                if (penguin.getMaxDepth() > maxDepth) {
+                    maxDepth = penguin.getMaxDepth();
+                }
+            }
+        }
+
+        return maxDepth;
+    }
+
+    public void displayNumberOfAquaticsByType() {
+        int dolphinCount = 0;
+        int penguinCount = 0;
+
+        // Parcourir tous les animaux aquatiques
+        for (int i = 0; i < aquaticCount; i++) {
+            if (aquaticAnimals[i] instanceof Dolphin) {
+                dolphinCount++;
+            } else if (aquaticAnimals[i] instanceof Penguin) {
+                penguinCount++;
+            }
+        }
+
+        System.out.println("Nombre de dauphins : " + dolphinCount);
+        System.out.println("Nombre de pingouins : " + penguinCount);
+    }
+
 }

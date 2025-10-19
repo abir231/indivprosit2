@@ -1,7 +1,7 @@
 package esprit.gestionzoo.entities;
 
-public sealed class Aquatic extends Animal permits Dolphin, Penguin {
-    protected String habitat; // ex. "mer", "océan", "bassin"
+public abstract sealed class Aquatic extends Animal permits Dolphin, Penguin {
+    protected String habitat;
 
     public Aquatic() {}
 
@@ -17,4 +17,24 @@ public sealed class Aquatic extends Animal permits Dolphin, Penguin {
     public void setHabitat(String habitat) {
         this.habitat = habitat;
     }
+
+    // Méthode abstraite : obligatoirement redéfinie dans les sous-classes
+    public abstract void swim();
+    @Override
+    public boolean equals(Object obj) {
+        // Vérifier si c'est le même objet
+        if (this == obj) return true;
+
+        // Vérifier si obj est null ou n'est pas de la même classe
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        // Convertir obj en Aquatic
+        Aquatic other = (Aquatic) obj;
+
+        // Comparer les attributs name, age et habitat
+        return this.getName().equals(other.getName())
+                && this.getAge() == other.getAge()
+                && this.habitat.equals(other.habitat);
+    }
+
 }
